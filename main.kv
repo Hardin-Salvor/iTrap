@@ -1,0 +1,529 @@
+<ScreenManager>:
+    canvas.before:
+        Color:
+            rgba: (0,100/250,100/250,1)
+        Rectangle:
+            pos: self.pos
+	        size: self.size
+
+
+    Menu:
+        name: "Menu"
+    Games:
+        name: "Games"
+    Rules:
+        name: "Rules"
+
+
+<Menu>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+
+        Image:
+            source: 'images/itraplogo22 .png'
+
+        BoxLayout:
+            #orientation "vertical"
+            padding: 15
+            space: 10
+            Button:
+                text: "Perox"
+                size_hint: ( .5, .3)
+                #width: 100
+                #height: 50
+                pos_hint: {"left": 1}
+                font_size: 32
+                on_release:
+                    root.manager.current = 'Games'
+                    root.manager.transition.direction = 'left'
+            Button:
+                text: "Perox 15%"
+                size_hint: (.5, .3 )
+                pos_hint: {"right": 1}
+                font_size: 32
+                on_release:
+                    root.manager.current = 'Rules'
+                    root.manager.transition.direction = 'left'
+<Games>:
+    text_input1: text_input1
+    res2o25: res2o25
+    resozgal5: resozgal5
+    resppa5: resppa5
+    resml5: resml5
+
+    text_input2: text_input2
+    resdil5: resdil5
+    resdil5oz: resdil5oz
+    rdilpaa5: rdilpaa5
+    resdil5ml: resdil5ml
+
+    text_input3: text_input3
+    resfldil5: resfldil5
+    resflh2o5: resflh2o5
+    resflpaa5: resflpaa5
+    resflml5: resflml5
+
+# Aqui va hoja de calculos para Perox 5
+
+    GridLayout:
+        rows: 10
+        padding: 5
+        size_hint: 1, 1
+        GridLayout:
+            cols: 3
+            size_hint: 1, .3
+            Button:
+                text: "Back to Menu"
+                font_size: 20
+                on_release:
+                    root.manager.current = 'Menu'
+                    root.manager.transition.direction = 'right'
+            Label:
+                text: "Perox"
+                font_size: 25
+            Button:
+                text: "Reset"
+                font_size: 25
+                on_release: root.clear()
+
+        GridLayout:
+            cols: 2
+            size_hint: 1,.3
+            padding: 5
+            Label:
+                text: "Dilute to 1:"
+                bold: True
+                font_size: 20
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            TextInput:
+                id: text_input1
+                hint_text:"Enter here"
+                halign: 'center'
+                valign: 'center'
+                font_size: 30
+                multiline:False
+                input_type: 'number'
+                input_filter: 'int'
+
+        GridLayout:
+            cols: 3
+            padding: 5
+            font_size: 10
+            size_hint: 1, .3
+            Button:
+                text: "CALCULATE"
+                on_release:
+                    root.calcdil5()
+
+        GridLayout:     #aqui va los calculos de H2O2
+            cols: 4
+            rows: 2
+            padding: 5
+            font_size: 10
+            size_hint: 1,.3
+            Label:
+                text: "H2O2 PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: res2o25
+                text: "0"
+            Label:
+                text: "OZ/GAL"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resozgal5
+                text: "0"
+            Label:
+                text: "PAA PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id:resppa5
+                text: "0"
+            Label:
+                text: "mL/L"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resml5
+                text: "0"
+        GridLayout:
+            cols: 2
+            size_hint: 1,.3
+            padding: 5
+            Label:
+                text: "Convert PAA PPM"
+                font_size: 20
+                bold: True
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+
+            TextInput:
+                id: text_input2
+                hint_text:"Enter here"
+                halign: 'center'
+                valign: 'bottom'
+                font_size: 30
+                text_size: self.size
+                multiline:False
+                input_type: 'number'
+                input_filter: 'int'
+        GridLayout:
+            cols: 3
+            size_hint: 1,.3
+            padding: 5
+            Button:
+                text: "CALCULATE"
+                on_release:
+                    root.calchdoso25()
+
+        GridLayout:     #aqui va los calculos de PAA
+            cols: 4
+            rows: 2
+            padding: 5
+            font_size: 10
+            size_hint: 1,.4
+            Label:
+                text: "DILUTION 1:"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resdil5
+                text: "0"
+            Label:
+                text: "OZ/GAL"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resdil5oz
+                text: "0"
+            Label:
+                text: "H2O2 PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: rdilpaa5
+                text: "0"
+            Label:
+                text: "mL/L"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resdil5ml
+                text: "0"
+
+        GridLayout:       #Convert Fl.Oz/gal
+            cols: 2
+            size_hint: 1,.3
+            padding: 5
+            Label:
+                text: "Convert Fl.Oz. /Gal"
+                font_size: 20
+                bold: True
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            TextInput:
+                id: text_input3
+                hint_text:"Enter here"
+                halign: 'center'
+                valign: 'bottom'
+                font_size: 30
+                multiline:False
+
+        GridLayout:
+            cols: 3
+            size_hint: 1,.3
+            padding: 5
+            Button:
+                text: "CALCULATE"
+                on_release:
+                    root.calcfloz5()
+
+        GridLayout:
+        #aqui va las salidas de fl oz / gal
+            cols: 4
+            rows: 2
+            padding: 5
+            font_size: 10
+            size_hint: 1,.4
+            Label:
+                text: "DILUTION 1:"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resfldil5
+                text: "0"
+            Label:
+                text: "H2O2 PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resflh2o5
+                text: "0"
+            Label:
+                text: "PAA PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resflpaa5
+                text: "0"
+            Label:
+                text: "mL/L"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resflml5
+                text: "0"
+<Rules>:
+    text_input15: text_input15
+    res2o215: res2o215
+    resozgal15: resozgal15
+    resppa15: resppa15
+    resml15: resml15
+
+    text_input12: text_input12
+    resdil15: resdil15
+    resdil15oz: resdil15oz
+    rdilpaa15: rdilpaa15
+    resdil15ml: resdil15ml
+
+    text_input13: text_input13
+    resfldil15: resfldil15
+    resflh2o15: resflh2o15
+    resflpaa15: resflpaa15
+    resflml15: resflml15
+
+# Aqui va hoja de calculos para Perox 15
+    GridLayout:
+        rows: 10
+        padding: 5
+        size_hint: 1, 1
+        GridLayout:
+            cols: 3
+            size_hint: 1, .3
+            Button:
+                text: "Back to Menu"
+                font_size: 20
+                on_release:
+                    root.manager.current = 'Menu'
+                    root.manager.transition.direction = 'right'
+            Label:
+                text: "Perox 15"
+                font_size: 25
+            Button:
+                text: "RESET"
+                font_size: 25
+                on_release: root.clear2()
+        GridLayout:
+            cols: 2
+            size_hint: 1,.3
+            padding: 5
+            Label:
+                text: "Dilute to 1:"
+                font_size: 20
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            TextInput:
+                id: text_input15
+                hint_text:"Enter here"
+                halign: 'left'
+                valign: 'center'
+                font_size: 20
+                multiline:False
+                input_type: 'number'
+                input_filter: 'int'
+        GridLayout:
+            cols: 3
+            padding: 5
+            font_size: 10
+            size_hint: 1, .3
+            Button:
+                text: "CALCULATE"
+                on_release:
+                    root.calcdil15()
+        GridLayout:        #aqui va los calculos de H2O2
+            cols: 4
+            rows: 2
+            padding: 5
+            font_size: 10
+            size_hint: 1,.3
+            Label:
+                text: "H2O2 PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: res2o215
+                text: "0"
+            Label:
+                text: "OZ/GAL"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resozgal15
+                text: "0"
+            Label:
+                text: "PAA PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id:resppa15
+                text: "0"
+            Label:
+                text: "mL/L"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resml15
+                text: "0"
+        GridLayout:
+            cols: 2
+            size_hint: 1,.3
+            padding: 5
+            Label:
+                text: "Convert PAA PPM"
+                font_size: 20
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            TextInput:
+                id: text_input12
+                hint_text:"Enter here"
+                halign: 'left'
+                valign: 'center'
+                font_size: 20
+                multiline:False
+        GridLayout:
+            cols: 3
+            size_hint: 1,.3
+            padding: 5
+            Button:
+                text: "CALCULATE"
+                on_release:
+                    root.calchdoso215()
+        GridLayout:
+        #aqui va los calculos de PAA
+            cols: 4
+            rows: 2
+            padding: 5
+            font_size: 10
+            size_hint: 1,.4
+            Label:
+                text: "DILUTION 1:"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resdil15
+                text: "0"
+            Label:
+                text: "OZ/GAL"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resdil15oz
+                text: "0"
+            Label:
+                text: "PAA PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: rdilpaa15
+                text: "0"
+            Label:
+                text: "mL/L"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resdil15ml
+                text: "0"
+        GridLayout:     #Convert Fl.Oz/gal
+            cols: 2
+            size_hint: 1,.3
+            padding: 5
+            Label:
+                text: "Convert Fl.Oz. /Gal"
+                font_size: 20
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            TextInput:
+                id: text_input13
+                hint_text:"Enter here"
+                halign: 'left'
+                valign: 'center'
+                font_size: 20
+                multiline:False
+        GridLayout:
+            cols: 3
+            size_hint: 1,.3
+            padding: 5
+            Button:
+                text: "CALCULATE"
+                on_release:
+                    root.calcfloz15()
+
+        GridLayout:         #aqui va los calculos de PAA
+            cols: 4
+            rows: 2
+            padding: 5
+            font_size: 10
+            size_hint: 1,.4
+            Label:
+                text: "DILUTION 1:"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resfldil15
+                text: "0"
+            Label:
+                text: "H2O2 PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resflh2o15
+                text: "0"
+            Label:
+                text: "PAA PPM"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resflpaa15
+                text: "0"
+            Label:
+                text: "mL/L"
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+            Label:
+                id: resflml15
+                text: "0"
